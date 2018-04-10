@@ -101,7 +101,11 @@ public class MainActivity extends AppCompatActivity implements
 
         // Attempt auto-sign in.
         if (!mIsResolving) {
-            requestCredentials();
+            // Carmen: don't request credentials when the activity starts.
+            // Only do it when the user clicks on the "load credentials" button.
+            // We're not testing this feature right now, so we don't want this popup every time
+            // we launch the app.
+            //requestCredentials();
         }
     }
 
@@ -224,6 +228,8 @@ public class MainActivity extends AppCompatActivity implements
                         .build())
                 .setIdTokenRequested(shouldRequestIdToken())
                 .setEmailAddressIdentifierSupported(true)
+                 // carmen: we're interested in phone numbers too.
+                .setPhoneNumberIdentifierSupported(true)
                 .setAccountTypes(IdentityProviders.GOOGLE)
                 .build();
 
